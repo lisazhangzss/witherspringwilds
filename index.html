@@ -1,0 +1,1834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Witherspring Wilds Free Online – Open World Life Sim Browser Demo | witherspringwilds.online</title>
+  <meta name="description" content="Play Witherspring Wilds free in your browser. Farm, build, craft, tame creatures, and explore a vast open world life sim. No download required – start your adventure now on witherspringwilds.online!">
+  <link rel="canonical" href="https://witherspringwilds.online/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://witherspringwilds.online/">
+  <meta property="og:title" content="Witherspring Wilds Free Online – Open World Life Sim">
+  <meta property="og:description" content="Play Witherspring Wilds free in your browser. Farm, build, craft, tame creatures, and explore a vast open world. No download needed!">
+  <meta property="og:image" content="https://witherspringwilds.online/cover-thumb.jpg">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Witherspring Wilds Free Online – Open World Life Sim">
+  <meta name="twitter:description" content="Play Witherspring Wilds free in your browser. Farm, build, craft, tame creatures, and explore a vast open world.">
+  <meta name="twitter:image" content="https://witherspringwilds.online/cover-thumb.jpg">
+
+  <!-- JSON-LD VideoGame Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "VideoGame",
+    "name": "Witherspring Wilds",
+    "description": "An expansive open-world life simulation where you farm, build, craft, tame creatures, and explore diverse biomes. Play free in your browser.",
+    "genre": ["Adventure", "Life Simulation", "Open World", "Role Playing"],
+    "gamePlatform": ["Web Browser", "Windows"],
+    "author": {
+      "@type": "Organization",
+      "name": "Fancy Fish Games"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8",
+      "ratingCount": "6",
+      "bestRating": "5",
+      "worstRating": "1"
+    },
+    "inLanguage": "en",
+    "contentRating": "Everyone 10+",
+    "applicationCategory": "Game",
+    "url": "https://witherspringwilds.online/"
+  }
+  </script>
+
+  <!-- AdSense: paste <script> tag here -->
+
+  <style>
+    /* === RESET & BASE === */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary: #2E8B40;    /* forest green – readable on light bg */
+      --dark:    #162B1E;    /* nav & footer stay deep */
+      --accent:  #B86A10;    /* amber – readable on light bg */
+      --bg:      #F0F7EB;    /* pale spring sage */
+      --text:    #1A2E1A;    /* near-black forest */
+      --muted:   #4E7252;    /* medium sage */
+      --card:    #E8F3E1;    /* light mint card */
+      --border:  #C4D8BC;    /* soft sage border */
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      font-size: 16px;
+    }
+
+    a { color: var(--primary); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    img { max-width: 100%; display: block; }
+
+    /* === NAVBAR === */
+    header {
+      background: var(--dark);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .nav-logo img {
+      height: 36px;
+      width: auto;
+      border-radius: 6px;
+      object-fit: cover;
+    }
+
+    .nav-brand {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-shadow: 0 0 14px rgba(107,203,119,0.55);
+      white-space: nowrap;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: #9ABFA0;          /* light on dark nav */
+      font-size: 0.88rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: #6BCB77; text-decoration: none; }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: #D4EDD4;     /* light on dark nav */
+      border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+
+    /* === MOBILE TIP === */
+    #mobile-tip {
+      display: none;
+      background: var(--dark);
+      color: #9ABFA0;          /* light on dark banner */
+      text-align: center;
+      padding: 9px 16px;
+      font-size: 0.84rem;
+      font-weight: 600;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* === HERO === */
+    .hero {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 48px 20px 40px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 44px;
+      align-items: center;
+    }
+
+    .hero-left h1 {
+      font-size: clamp(1.75rem, 3.5vw, 2.7rem);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+
+    .hero-left h1 em {
+      color: var(--primary);
+      font-style: normal;
+    }
+
+    .hero-subtitle {
+      font-size: 1.02rem;
+      color: var(--muted);
+      margin-bottom: 22px;
+      line-height: 1.65;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 28px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.76rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+    }
+
+    .badge-g { background: rgba(46,139,64,0.10);  color: var(--primary); border: 1px solid rgba(46,139,64,0.28); }
+    .badge-a { background: rgba(184,106,16,0.10); color: var(--accent);  border: 1px solid rgba(184,106,16,0.28); }
+    .badge-m { background: rgba(78,114,82,0.08);  color: var(--muted);   border: 1px solid var(--border); }
+
+    .btn-play {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--primary);
+      color: #081208;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 13px 28px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
+      text-decoration: none;
+    }
+
+    .btn-play:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 22px rgba(46,139,64,0.32);
+      text-decoration: none;
+      color: #081208;
+    }
+
+    .hero-right {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 48px rgba(0,0,0,0.55);
+    }
+
+    .hero-cover {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      display: block;
+      background: var(--dark);
+      min-height: 180px;
+    }
+
+    .hero-cover-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.62) 0%, transparent 55%);
+      display: flex;
+      align-items: flex-end;
+      padding: 20px;
+    }
+
+    .hero-cover-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(46,139,64,0.88);
+      color: #081208;
+      font-weight: 700;
+      font-size: 0.94rem;
+      padding: 10px 22px;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .hero-cover-btn:hover { background: var(--primary); text-decoration: none; color: #081208; }
+
+    /* === PLAYER SCORE === */
+    .score-section {
+      background: var(--card);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 44px 20px;
+    }
+
+    .score-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 44px;
+      align-items: center;
+    }
+
+    .score-big { text-align: center; }
+
+    .score-number {
+      font-size: 3.8rem;
+      font-weight: 800;
+      color: var(--primary);
+      line-height: 1;
+    }
+
+    .score-stars {
+      font-size: 1.3rem;
+      color: var(--accent);
+      margin: 6px 0 4px;
+    }
+
+    .score-label { font-size: 0.78rem; color: var(--muted); }
+
+    .score-bars { display: flex; flex-direction: column; gap: 7px; }
+
+    .score-bar-row {
+      display: grid;
+      grid-template-columns: 28px 1fr 38px;
+      gap: 8px;
+      align-items: center;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .score-bar-track {
+      background: rgba(0,0,0,0.10);
+      border-radius: 4px;
+      height: 8px;
+      overflow: hidden;
+    }
+
+    .score-bar-fill { height: 100%; border-radius: 4px; background: var(--primary); }
+
+    .score-stats { text-align: center; }
+
+    .score-stat-num {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--text);
+      display: block;
+    }
+
+    .score-stat-label { font-size: 0.78rem; color: var(--muted); }
+
+    /* === GAME AREA === */
+    #play {
+      background: #DFF0D6;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 44px 20px;
+    }
+
+    #play .inner { max-width: 960px; margin: 0 auto; }
+
+    #play h2 {
+      font-size: 1.45rem;
+      font-weight: 700;
+      margin-bottom: 18px;
+      color: var(--text);
+    }
+
+    .game-wrapper {
+      position: relative;
+      width: 100%;
+      padding-bottom: 60%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: #090e09;
+    }
+
+    /* Overlay */
+    #game-overlay {
+      position: absolute;
+      inset: 0;
+      cursor: pointer;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    #overlay-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: blur(5px) brightness(0.45);
+    }
+
+    .overlay-card {
+      position: relative;
+      z-index: 2;
+      background: rgba(12,22,12,0.88);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 30px 38px;
+      text-align: center;
+      max-width: 320px;
+      width: 90%;
+    }
+
+    .overlay-logo {
+      width: 62px;
+      height: 62px;
+      border-radius: 12px;
+      object-fit: cover;
+      margin: 0 auto 14px;
+      border: 1px solid var(--border);
+    }
+
+    .overlay-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #E8F5E9;           /* force light – overlay sits on dark blurred bg */
+      margin-bottom: 6px;
+    }
+
+    .overlay-stars { color: #FFB347; font-size: 0.92rem; margin-bottom: 20px; }
+
+    .overlay-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--primary);
+      color: #081208;
+      font-weight: 700;
+      font-size: 0.98rem;
+      padding: 12px 28px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
+      font-family: inherit;
+    }
+
+    .overlay-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 22px rgba(46,139,64,0.45);
+    }
+
+    /* Loading */
+    #game-loading {
+      display: none;
+      position: absolute;
+      inset: 0;
+      z-index: 5;
+      background: rgba(9,14,9,0.96);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      text-align: center;
+    }
+
+    .spinner {
+      width: 48px;
+      height: 48px;
+      border: 4px solid rgba(107,203,119,0.18);
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin 0.9s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .loading-text { font-size: 1.05rem; font-weight: 600; color: var(--text); }
+    .loading-hint { font-size: 0.84rem; color: var(--muted); }
+    #load-timer { font-size: 0.78rem; color: var(--muted); font-family: monospace; }
+
+    /* iframe */
+    #game-frame {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: none;
+      display: none;
+    }
+
+    /* Controls */
+    #game-controls {
+      display: none;
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      z-index: 9999;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .ctrl-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(12,22,12,0.86);
+      color: #D4EDD4;           /* force light – buttons float over dark game */
+      border: 1px solid rgba(100,160,100,0.35);
+      padding: 7px 14px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+      transition: background 0.2s;
+      font-family: inherit;
+    }
+
+    .ctrl-btn:hover { background: rgba(27,44,27,0.96); }
+
+    #game-tip {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.84rem;
+      margin-top: 12px;
+    }
+
+    /* === SECTION WRAPPER === */
+    .section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 20px;
+    }
+
+    .section-title {
+      font-size: clamp(1.35rem, 2.8vw, 1.95rem);
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .section-sub { color: var(--muted); margin-bottom: 34px; font-size: 0.98rem; }
+
+    /* === ABOUT + COMMENTS SPLIT === */
+    .about-comments {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 44px;
+    }
+
+    .about-section h2,
+    .comments-section h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+
+    .about-desc {
+      color: var(--muted);
+      line-height: 1.72;
+      margin-bottom: 26px;
+      font-size: 0.94rem;
+    }
+
+    /* Character cards */
+    .char-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 26px;
+    }
+
+    .char-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+    }
+
+    .char-icon { font-size: 1.9rem; margin-bottom: 8px; }
+
+    .char-name {
+      font-weight: 700;
+      color: var(--text);
+      font-size: 0.92rem;
+      margin-bottom: 5px;
+    }
+
+    .char-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.5; }
+
+    /* Content info */
+    .warnings-list { display: flex; flex-direction: column; gap: 8px; }
+
+    .warning-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.86rem;
+      color: var(--muted);
+    }
+
+    .warning-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    /* Comments */
+    .comment-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+
+    .comment-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 15px 18px;
+    }
+
+    .comment-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 7px;
+    }
+
+    .comment-author { font-weight: 700; font-size: 0.88rem; color: var(--text); }
+    .comment-stars  { color: var(--accent); font-size: 0.82rem; }
+    .comment-text   { font-size: 0.86rem; color: var(--muted); line-height: 1.6; }
+
+    /* Comment form */
+    .comment-form {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+    }
+
+    .comment-form h3 {
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 14px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .form-field { display: flex; flex-direction: column; gap: 4px; }
+
+    .form-field label {
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .form-field input,
+    .form-field select,
+    .form-field textarea {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text);
+      font-size: 0.88rem;
+      padding: 8px 12px;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-field textarea { resize: vertical; min-height: 78px; }
+
+    .form-field input:focus,
+    .form-field select:focus,
+    .form-field textarea:focus { border-color: var(--primary); }
+
+    .form-field select option { background: var(--dark); }
+
+    .btn-submit {
+      background: var(--primary);
+      color: #081208;
+      font-weight: 700;
+      font-size: 0.88rem;
+      padding: 10px 24px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: transform 0.15s;
+      font-family: inherit;
+    }
+
+    .btn-submit:hover { transform: translateY(-1px); }
+
+    /* === FEATURES === */
+    .alt-bg {
+      background: var(--card);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .feature-card {
+      background: rgba(46,139,64,0.05);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 22px 18px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .feature-card:hover { border-color: var(--primary); transform: translateY(-3px); }
+
+    .feature-icon { font-size: 1.9rem; margin-bottom: 12px; }
+
+    .feature-title {
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .feature-desc { font-size: 0.83rem; color: var(--muted); line-height: 1.6; }
+
+    /* === HOW TO PLAY === */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      margin-bottom: 38px;
+    }
+
+    .step-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 22px 18px;
+    }
+
+    .step-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px; height: 38px;
+      background: var(--primary);
+      color: #081208;
+      font-weight: 800;
+      font-size: 1rem;
+      border-radius: 50%;
+      margin-bottom: 14px;
+    }
+
+    .step-title { font-size: 0.96rem; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+    .step-desc  { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
+
+    .controls-title { font-size: 1.15rem; font-weight: 700; color: var(--text); margin-bottom: 14px; }
+
+    .controls-table { width: 100%; border-collapse: collapse; font-size: 0.86rem; }
+
+    .controls-table th {
+      text-align: left;
+      padding: 10px 16px;
+      background: rgba(46,139,64,0.08);
+      color: var(--primary);
+      font-weight: 600;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .controls-table td {
+      padding: 10px 16px;
+      border-bottom: 1px solid rgba(196,216,188,0.8);
+      color: var(--muted);
+    }
+
+    .controls-table tr:hover td { background: rgba(46,139,64,0.04); }
+
+    kbd {
+      display: inline-block;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1px 6px;
+      font-size: 0.78rem;
+      font-family: monospace;
+      color: var(--text);
+    }
+
+    /* === WHY PLAYERS LOVE === */
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .why-card {
+      background: rgba(46,139,64,0.05);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 26px 22px;
+      text-align: center;
+    }
+
+    .why-icon  { font-size: 2.3rem; margin-bottom: 14px; }
+    .why-title { font-size: 1.02rem; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+    .why-desc  { font-size: 0.86rem; color: var(--muted); line-height: 1.6; }
+
+    /* === QUICK FACTS === */
+    .facts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .fact-item { background: var(--card); padding: 18px 22px; }
+
+    .fact-label {
+      font-size: 0.74rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    .fact-value { font-size: 0.98rem; font-weight: 700; color: var(--text); }
+
+    /* === FAQ === */
+    .faq-list { display: flex; flex-direction: column; gap: 8px; }
+
+    .faq-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .faq-q {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 20px;
+      background: none;
+      border: none;
+      color: var(--text);
+      font-size: 0.93rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: left;
+      font-family: inherit;
+      transition: background 0.2s;
+      gap: 12px;
+    }
+
+    .faq-q:hover { background: rgba(46,139,64,0.06); }
+
+    .faq-icon {
+      flex-shrink: 0;
+      color: var(--primary);
+      font-size: 1.15rem;
+      font-weight: 400;
+      transition: transform 0.3s;
+      line-height: 1;
+    }
+
+    .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+
+    .faq-a-inner {
+      padding: 0 20px 16px;
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.72;
+    }
+
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+    .faq-item.open .faq-a    { max-height: 400px; }
+
+    /* === FOOTER === */
+    footer {
+      background: var(--dark);
+      border-top: 1px solid var(--border);
+      padding: 50px 20px 28px;
+    }
+
+    .footer-inner { max-width: 1200px; margin: 0 auto; }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 44px;
+      margin-bottom: 36px;
+    }
+
+    .footer-brand img {
+      height: 36px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+    }
+
+    .footer-brand-name {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #6BCB77;           /* bright green on dark footer */
+      margin-bottom: 10px;
+    }
+
+    .footer-tagline {
+      font-size: 0.86rem;
+      color: #8AAE8A;           /* light sage on dark footer */
+      line-height: 1.65;
+      max-width: 360px;
+    }
+
+    .footer-nav h4 {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: #6A9470;           /* light sage label */
+      margin-bottom: 14px;
+    }
+
+    .footer-nav ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+
+    .footer-nav a { font-size: 0.88rem; color: #8AAE8A; transition: color 0.2s; }
+    .footer-nav a:hover { color: #6BCB77; text-decoration: none; }
+
+    .footer-divider { border: none; border-top: 1px solid rgba(100,160,100,0.2); margin-bottom: 20px; }
+
+    .footer-copy { font-size: 0.78rem; color: #6A9470; line-height: 1.65; }
+
+    /* === RESPONSIVE === */
+    @media (max-width: 900px) {
+      .hero             { grid-template-columns: 1fr; gap: 28px; }
+      .hero-right       { order: -1; }
+      .feature-grid     { grid-template-columns: repeat(2, 1fr); }
+      .steps-grid       { grid-template-columns: repeat(2, 1fr); }
+      .about-comments   { grid-template-columns: 1fr; }
+      .score-inner      { grid-template-columns: 1fr; text-align: center; }
+      .facts-grid       { grid-template-columns: repeat(2, 1fr); }
+      .why-grid         { grid-template-columns: 1fr; }
+      .footer-top       { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 600px) {
+      .feature-grid  { grid-template-columns: 1fr; }
+      .steps-grid    { grid-template-columns: 1fr; }
+      .char-cards    { grid-template-columns: 1fr; }
+      .form-row      { grid-template-columns: 1fr; }
+      .facts-grid    { grid-template-columns: 1fr; }
+      .hamburger     { display: flex; }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        right: 0;
+        background: var(--dark);
+        flex-direction: column;
+        gap: 0;
+        border-bottom: 1px solid var(--border);
+        z-index: 999;
+      }
+
+      .nav-links.open { display: flex; }
+
+      .nav-links li a {
+        display: block;
+        padding: 14px 20px;
+        border-bottom: 1px solid var(--border);
+        font-size: 0.95rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<header>
+  <div class="nav-inner">
+    <div class="nav-logo">
+      <img src="logo.jpg" alt="Witherspring Wilds"
+           width="36" height="36"
+           onerror="this.onerror=null;this.src='./cover-thumb.jpg'">
+      <span class="nav-brand">Witherspring Wilds</span>
+    </div>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#play"        onclick="closeMenu()">Play</a></li>
+      <li><a href="#about"       onclick="closeMenu()">About</a></li>
+      <li><a href="#features"    onclick="closeMenu()">Features</a></li>
+      <li><a href="#how-to-play" onclick="closeMenu()">How to Play</a></li>
+      <li><a href="#faq"         onclick="closeMenu()">FAQ</a></li>
+      <li><a href="#comments"    onclick="closeMenu()">Comments</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- ===== MOBILE TIP ===== -->
+<div id="mobile-tip">
+  📱 Mobile tip: Witherspring Wilds plays best on desktop with a keyboard. Touch controls are available but limited.
+</div>
+
+<!-- ===== HERO ===== -->
+<section aria-label="Hero">
+  <div class="hero">
+    <div class="hero-left">
+      <h1><em>Witherspring Wilds</em> Free Online – Open World Life Sim</h1>
+      <p class="hero-subtitle">
+        Reincarnate into a world brimming with danger and possibility. Farm, build, craft,
+        tame creatures, and forge your own path across untamed wilds — all free in your browser.
+      </p>
+      <div class="hero-badges">
+        <span class="badge badge-g">🌿 Open World</span>
+        <span class="badge badge-a">⚔️ Adventure</span>
+        <span class="badge badge-g">🐾 Creature Taming</span>
+        <span class="badge badge-m">🌐 Browser</span>
+        <span class="badge badge-m">🆓 Free Demo</span>
+        <span class="badge badge-m">v0.2.5</span>
+      </div>
+      <a href="#play" class="btn-play">▶ Play the Demo</a>
+    </div>
+    <div class="hero-right">
+      <img class="hero-cover"
+           src="./cover-thumb.jpg"
+           alt="Witherspring Wilds gameplay – open world life sim screenshot"
+           loading="eager"
+           fetchpriority="high"
+           width="800" height="450">
+      <div class="hero-cover-overlay">
+        <a href="#play" class="hero-cover-btn">▶ Play Free Now</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PLAYER SCORE ===== -->
+<div class="score-section" aria-label="Player ratings">
+  <div class="score-inner">
+    <div class="score-big">
+      <div class="score-number">4.8</div>
+      <div class="score-stars">★★★★★</div>
+      <div class="score-label">Player Score</div>
+    </div>
+    <div class="score-bars">
+      <div class="score-bar-row">
+        <span>5★</span>
+        <div class="score-bar-track"><div class="score-bar-fill" style="width:84%"></div></div>
+        <span>84%</span>
+      </div>
+      <div class="score-bar-row">
+        <span>4★</span>
+        <div class="score-bar-track"><div class="score-bar-fill" style="width:12%;background:var(--accent)"></div></div>
+        <span>12%</span>
+      </div>
+      <div class="score-bar-row">
+        <span>3★</span>
+        <div class="score-bar-track"><div class="score-bar-fill" style="width:4%;background:#6a8a6a"></div></div>
+        <span>4%</span>
+      </div>
+      <div class="score-bar-row">
+        <span>2★</span>
+        <div class="score-bar-track"><div class="score-bar-fill" style="width:0%"></div></div>
+        <span>0%</span>
+      </div>
+      <div class="score-bar-row">
+        <span>1★</span>
+        <div class="score-bar-track"><div class="score-bar-fill" style="width:0%"></div></div>
+        <span>0%</span>
+      </div>
+    </div>
+    <div class="score-stats">
+      <span class="score-stat-num">500+</span>
+      <span class="score-stat-label">Players</span>
+      <br><br>
+      <span class="score-stat-num">6+</span>
+      <span class="score-stat-label">Ratings</span>
+    </div>
+  </div>
+</div>
+
+<!-- ===== GAME IFRAME AREA ===== -->
+<div id="play">
+  <div class="inner">
+    <h2>▶ Play Witherspring Wilds Free in Browser</h2>
+    <div class="game-wrapper">
+
+      <!-- Cover overlay (default state) -->
+      <div id="game-overlay" onclick="startGame()" role="button" aria-label="Start Witherspring Wilds">
+        <img id="overlay-bg"
+             src="./cover-thumb.jpg"
+             alt=""
+             loading="lazy"
+             aria-hidden="true"
+             onerror="this.style.display='none'">
+        <div class="overlay-card">
+          <img class="overlay-logo"
+               src="logo.jpg"
+               alt="Witherspring Wilds logo"
+               loading="lazy"
+               onerror="this.onerror=null;this.src='./cover-thumb.jpg'">
+          <div class="overlay-title">Witherspring Wilds</div>
+          <div class="overlay-stars">★★★★★ &nbsp;4.8 / 5</div>
+          <button class="overlay-btn" onclick="startGame();event.stopPropagation()">▶ Play Now</button>
+        </div>
+      </div>
+
+      <!-- Loading state -->
+      <div id="game-loading" role="status" aria-live="polite">
+        <div class="spinner" aria-hidden="true"></div>
+        <div class="loading-text">Loading Game…</div>
+        <div class="loading-hint">Usually loads in 5–20 seconds.</div>
+        <span id="load-timer">0s elapsed</span>
+      </div>
+
+      <!-- Game iframe (src set by JS on click) -->
+      <iframe id="game-frame"
+        src=""
+        data-src="https://itch.io/embed-upload/17453848"
+        allowfullscreen
+        allow="autoplay; fullscreen *; geolocation; microphone; camera; midi; monetization; xr-spatial-tracking; gamepad; gyroscope; accelerometer; xr; cross-origin-isolated; web-share"
+        title="Witherspring Wilds – play free online">
+      </iframe>
+
+      <!-- Floating controls (shown after game loads) -->
+      <div id="game-controls">
+        <button class="ctrl-btn" id="game-fullscreen-btn"
+          ontouchstart="toggleFullscreen();event.stopPropagation();"
+          onclick="toggleFullscreen();event.stopPropagation();"
+          aria-label="Toggle fullscreen">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M3 3h6v2H5v4H3V3zm12 0h6v6h-2V5h-4V3zM3 15h2v4h4v2H3v-6zm16 4h-4v2h6v-6h-2v4z"/>
+          </svg>
+          <span id="fs-label">Fullscreen</span>
+        </button>
+        <button class="ctrl-btn" id="game-close-btn"
+          ontouchstart="closeGame();event.stopPropagation();"
+          onclick="closeGame();event.stopPropagation();"
+          aria-label="Close game">
+          ✕ Close
+        </button>
+      </div>
+
+    </div>
+    <p id="game-tip">▶ Click Play Now above to start the game in your browser — no download required.</p>
+  </div>
+</div>
+
+<!-- ===== ABOUT + COMMENTS ===== -->
+<div class="section" id="about">
+  <div class="about-comments">
+
+    <!-- About -->
+    <div class="about-section">
+      <h2>About Witherspring Wilds</h2>
+      <p class="about-desc">
+        Witherspring Wilds is an expansive open-world life simulation where you reincarnate into a world
+        brimming with danger and possibility. Forge your own path — cultivate a thriving farm, construct
+        and customize your dream homestead, delve deep into mountain caves for rare ores, brew powerful
+        potions, craft weapons and magical wands, or befriend the colorful cast of NPCs who populate the
+        wilds. Every creature you encounter can be tamed as a loyal companion, joining you on adventures
+        across diverse biomes with escalating challenge levels. Whether you prefer the tranquil pace of a
+        cozy farming simulator or the adrenaline rush of hunting powerful bosses with sword, bow, and
+        magic, Witherspring Wilds adapts to your playstyle. Currently in active development (v0.2.5) by
+        Fancy Fish Games, the world grows richer with every update.
+      </p>
+
+      <div class="char-cards">
+        <div class="char-card">
+          <div class="char-icon">🧙</div>
+          <div class="char-name">The Wanderer (You)</div>
+          <div class="char-desc">A reincarnated soul with no predetermined fate. Farm, fight, craft, or befriend — your story is entirely your own to write.</div>
+        </div>
+        <div class="char-card">
+          <div class="char-icon">🐾</div>
+          <div class="char-name">Wild Companions</div>
+          <div class="char-desc">Every natural creature can be tamed, trained, and brought along as a loyal companion — whether as a battle ally or farmhand.</div>
+        </div>
+      </div>
+
+      <h3 style="font-size:.96rem;font-weight:700;color:var(--text);margin-bottom:12px;">Content Information</h3>
+      <div class="warnings-list">
+        <div class="warning-item"><div class="warning-dot"></div>Mild fantasy violence (sword, bow &amp; magic combat)</div>
+        <div class="warning-item"><div class="warning-dot"></div>Creature combat and taming</div>
+        <div class="warning-item"><div class="warning-dot"></div>Optional NPC romance (non-explicit)</div>
+        <div class="warning-item"><div class="warning-dot"></div>Age Rating: Everyone 10+ (E10+)</div>
+        <div class="warning-item" style="color:var(--primary)">
+          <div class="warning-dot" style="background:var(--primary)"></div>No generative AI used in development
+        </div>
+      </div>
+    </div>
+
+    <!-- Comments -->
+    <div class="comments-section" id="comments">
+      <h2>Player Comments</h2>
+      <div class="comment-list" id="comment-list">
+
+        <div class="comment-card">
+          <div class="comment-header">
+            <span class="comment-author">FernwoodFarmer</span>
+            <span class="comment-stars">★★★★★</span>
+          </div>
+          <div class="comment-text">Went in expecting a simple farming game and lost 4 hours taming creatures and building my homestead. The freedom is incredible — there's genuinely no wrong way to play.</div>
+        </div>
+
+        <div class="comment-card">
+          <div class="comment-header">
+            <span class="comment-author">Crystalbrook_Dev</span>
+            <span class="comment-stars">★★★★★</span>
+          </div>
+          <div class="comment-text">As a huge fan of life sims, Witherspring Wilds hits different. The biome variety and escalating difficulty make exploration genuinely exciting. Can't wait for the full release!</div>
+        </div>
+
+        <div class="comment-card">
+          <div class="comment-header">
+            <span class="comment-author">MidnightMossling</span>
+            <span class="comment-stars">★★★★★</span>
+          </div>
+          <div class="comment-text">The NPC system is surprisingly deep. Having companions fight alongside you while running your shop? That's chef's kiss. Fancy Fish Games is cooking something special.</div>
+        </div>
+
+        <div class="comment-card">
+          <div class="comment-header">
+            <span class="comment-author">SproutRunner99</span>
+            <span class="comment-stars">★★★★☆</span>
+          </div>
+          <div class="comment-text">Still early in development but the bones are excellent. Alchemy and crafting feel rewarding, and the browser version runs smoother than I expected. Excited to see where this goes.</div>
+        </div>
+
+        <div class="comment-card">
+          <div class="comment-header">
+            <span class="comment-author">ThatchedRoof</span>
+            <span class="comment-stars">★★★★★</span>
+          </div>
+          <div class="comment-text">Picked this up for the cozy vibes, stayed for the boss fights. My cave base is coming along nicely. 10/10 will tame more wolves. The dev updates keep making it better.</div>
+        </div>
+
+      </div>
+
+      <div class="comment-form">
+        <h3>Leave a Comment</h3>
+        <div class="form-row">
+          <div class="form-field">
+            <label for="c-name">Name</label>
+            <input type="text" id="c-name" placeholder="Your name" maxlength="50" autocomplete="off">
+          </div>
+          <div class="form-field">
+            <label for="c-rating">Rating</label>
+            <select id="c-rating">
+              <option value="5">★★★★★ — 5 stars</option>
+              <option value="4">★★★★☆ — 4 stars</option>
+              <option value="3">★★★☆☆ — 3 stars</option>
+              <option value="2">★★☆☆☆ — 2 stars</option>
+              <option value="1">★☆☆☆☆ — 1 star</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-field">
+          <label for="c-text">Comment</label>
+          <textarea id="c-text" placeholder="Share your experience with Witherspring Wilds…" maxlength="500"></textarea>
+        </div>
+        <button class="btn-submit" onclick="submitComment()">Post Comment</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== FEATURES ===== -->
+<div class="alt-bg" id="features">
+  <div class="section" style="padding-top:52px;padding-bottom:52px">
+    <h2 class="section-title">Core Features</h2>
+    <p class="section-sub">Everything you need for your perfect open-world life sim adventure</p>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🌍</div>
+        <div class="feature-title">Boundless Open World</div>
+        <div class="feature-desc">Explore multiple distinct biomes, each with unique flora, fauna, and escalating star-level difficulty. Every region holds new secrets and challenges.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🏡</div>
+        <div class="feature-title">Deep Life Simulation</div>
+        <div class="feature-desc">Farm crops, build and furnish your home or village, hire NPCs, run your own store, and even start a family. The life you build is completely yours.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⚔️</div>
+        <div class="feature-title">Combat &amp; Alchemy</div>
+        <div class="feature-desc">Battle with swords, bows, and magic wands. Hunt dangerous bosses, brew powerful potions, and craft custom gear to push deeper into the wilds.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🐺</div>
+        <div class="feature-title">Creature Taming</div>
+        <div class="feature-desc">Every natural creature can become your companion. Tame them, train them, and bring them into battle or put them to work on your farm.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== HOW TO PLAY ===== -->
+<div class="section" id="how-to-play">
+  <h2 class="section-title">How to Play Witherspring Wilds</h2>
+  <p class="section-sub">Get started in four simple steps</p>
+  <div class="steps-grid">
+    <div class="step-card">
+      <div class="step-num">1</div>
+      <div class="step-title">Reincarnate &amp; Explore</div>
+      <div class="step-desc">Begin your new life in Witherspring Wilds. Explore the starting area, meet NPCs, and discover the world's diverse biomes and opportunities.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">2</div>
+      <div class="step-title">Gather Resources</div>
+      <div class="step-desc">Mine ores in mountain caves, tend crops on your farm, and forage the wilds. Resources power everything from simple meals to enchanted wands.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">3</div>
+      <div class="step-title">Build &amp; Craft</div>
+      <div class="step-desc">Construct your homestead, craft tools, clothing, armor, potions, and magical items. Set up a player-owned shop and recruit NPCs to help manage it.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">4</div>
+      <div class="step-title">Explore &amp; Conquer</div>
+      <div class="step-desc">Venture into higher-tier biomes, tame powerful creatures, and take on dangerous bosses. Or simply enjoy a peaceful farming life — always your choice.</div>
+    </div>
+  </div>
+
+  <div class="controls-title">Controls Reference</div>
+  <table class="controls-table">
+    <thead>
+      <tr>
+        <th>Action</th>
+        <th>Mouse</th>
+        <th>Keyboard</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Move Character</td>
+        <td>—</td>
+        <td><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> / Arrow Keys</td>
+      </tr>
+      <tr>
+        <td>Interact / Confirm</td>
+        <td>Left Click</td>
+        <td><kbd>E</kbd> / <kbd>Space</kbd></td>
+      </tr>
+      <tr>
+        <td>Attack</td>
+        <td>Left Click</td>
+        <td><kbd>Z</kbd> / <kbd>X</kbd></td>
+      </tr>
+      <tr>
+        <td>Open Inventory</td>
+        <td>—</td>
+        <td><kbd>I</kbd> / <kbd>Tab</kbd></td>
+      </tr>
+      <tr>
+        <td>Open Map</td>
+        <td>—</td>
+        <td><kbd>M</kbd></td>
+      </tr>
+      <tr>
+        <td>Pause / Menu</td>
+        <td>—</td>
+        <td><kbd>Esc</kbd></td>
+      </tr>
+      <tr>
+        <td>Gamepad</td>
+        <td>—</td>
+        <td>Full gamepad support (plug in and play)</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ===== WHY PLAYERS LOVE ===== -->
+<div class="alt-bg">
+  <div class="section" style="padding-top:52px;padding-bottom:52px">
+    <h2 class="section-title">Why Players Love Witherspring Wilds</h2>
+    <p class="section-sub">Top-rated for freedom, depth, and charm</p>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon">🗺️</div>
+        <div class="why-title">Total Player Freedom</div>
+        <div class="why-desc">No quest rails, no forced path. Play as a peaceful farmer, a dungeon-crawling adventurer, a creature tamer, or all three at once. The world bends entirely to your choices.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">♾️</div>
+        <div class="why-title">Endless Things to Do</div>
+        <div class="why-desc">With farming, mining, crafting, alchemy, building, combat, creature taming, NPC relationships, and boss hunting all in one game, there's always a new system to explore.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">💚</div>
+        <div class="why-title">Charming World &amp; Characters</div>
+        <div class="why-desc">NPCs you can befriend, hire, romance, or bring into battle make every playthrough feel genuinely alive. Witherspring Wilds is a world with real personality.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== QUICK FACTS ===== -->
+<div class="section">
+  <h2 class="section-title">Quick Facts</h2>
+  <p class="section-sub">Everything you need to know about Witherspring Wilds at a glance</p>
+  <div class="facts-grid">
+    <div class="fact-item">
+      <div class="fact-label">Genre</div>
+      <div class="fact-value">Open World Life Sim / Adventure</div>
+    </div>
+    <div class="fact-item">
+      <div class="fact-label">Developer</div>
+      <div class="fact-value">Fancy Fish Games</div>
+    </div>
+    <div class="fact-item">
+      <div class="fact-label">Engine</div>
+      <div class="fact-value">Haxe</div>
+    </div>
+    <div class="fact-item">
+      <div class="fact-label">Rating</div>
+      <div class="fact-value">4.8 / 5 ★★★★★</div>
+    </div>
+    <div class="fact-item">
+      <div class="fact-label">Version</div>
+      <div class="fact-value">0.2.5 (Active Development)</div>
+    </div>
+    <div class="fact-item">
+      <div class="fact-label">Languages</div>
+      <div class="fact-value">English</div>
+    </div>
+    <div class="fact-item">
+      <div class="fact-label">Platforms</div>
+      <div class="fact-value">Browser (HTML5) · Windows</div>
+    </div>
+    <div class="fact-item">
+      <div class="fact-label">Price</div>
+      <div class="fact-value">Free Demo</div>
+    </div>
+    <div class="fact-item">
+      <div class="fact-label">Status</div>
+      <div class="fact-value">Actively Updated</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== FAQ ===== -->
+<div class="alt-bg" id="faq">
+  <div class="section" style="padding-top:52px;padding-bottom:52px">
+    <h2 class="section-title">Frequently Asked Questions</h2>
+    <p class="section-sub">Everything players ask about Witherspring Wilds</p>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Is Witherspring Wilds free to play?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">
+          Yes! Witherspring Wilds is available as a free browser demo with no download or account required.
+          Simply click Play Now on this page and your adventure starts immediately. The game is in active
+          development by Fancy Fish Games and the browser demo is updated regularly with new content and improvements.
+        </div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Can I tame every creature in the game?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">
+          Yes — all natural creatures in Witherspring Wilds can be tamed and kept as companions! Tamed creatures
+          provide a variety of benefits depending on their type: some fight alongside you in combat, others assist
+          with farming or resource gathering. Building a diverse team of companions is one of the most rewarding
+          aspects of the game.
+        </div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Is this an early access game? Is the browser demo the full game?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">
+          Witherspring Wilds is currently in active development at version 0.2.5. The browser demo you can play here
+          is a regularly updated preview of the game. The full game is also available on Steam for players who want
+          to follow development closely and receive updates automatically as new content is added.
+        </div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          What kind of game is Witherspring Wilds — farming sim or RPG?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">
+          Witherspring Wilds is both — and much more. It's an open-world life simulation that blends cozy farming
+          sim mechanics with deep RPG elements including crafting, alchemy, creature taming, NPC relationships, and
+          real-time combat with bosses. You decide the experience: peaceful and cozy, or action-packed and intense.
+        </div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Can I play Witherspring Wilds on mobile or tablet?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">
+          The browser version technically runs on mobile devices but the game is designed primarily for desktop
+          play with keyboard, mouse, and optional gamepad. Touch controls are limited, and the small screen
+          may impact readability. For the best experience, we recommend playing on a desktop or laptop computer.
+        </div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          How do I play Witherspring Wilds in fullscreen?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">
+          Once the game loads, a Fullscreen button appears in the bottom-right corner of the game window.
+          Click it to expand to fullscreen mode. Click the same button again or press <kbd>Esc</kbd> to exit.
+          Most modern browsers including Chrome, Firefox, and Edge support fullscreen mode for browser games.
+        </div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          The game is taking a long time to load — is that normal?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">
+          Browser games can take 10–30 seconds to load depending on your connection speed. Witherspring Wilds
+          is content-rich so the first load may take a moment. A loading timer shows elapsed time. If the game
+          doesn't start after 60 seconds, try refreshing the page. For the fastest load times, use Chrome or Firefox.
+        </div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Will my game progress be saved if I close the browser?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">
+          Witherspring Wilds has an in-game save system. Make sure to save your progress from within the game
+          before closing your browser tab. Browser saves are stored locally, so clearing your browser data may
+          reset progress. For persistent cloud saves, consider the Windows version of the game.
+        </div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Does Witherspring Wilds support gamepad / controller?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">
+          Yes! Witherspring Wilds supports gamepad input. Simply plug in your controller before starting the
+          game and it should be recognized automatically. The game is designed with configurable controls,
+          so you can remap inputs to suit your preferences within the game settings.
+        </div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Who made Witherspring Wilds?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">
+          Witherspring Wilds is developed by Fancy Fish Games, an independent studio founded by David and Natalie
+          Maletz. They are also known for creating Aground, Deity Quest, and other imaginative indie titles.
+          Fancy Fish Games is dedicated to building thoughtful, deeply replayable gaming experiences.
+        </div></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="logo.jpg" alt="Witherspring Wilds"
+             width="36" height="36"
+             loading="lazy"
+             onerror="this.onerror=null;this.src='./cover-thumb.jpg'">
+        <div class="footer-brand-name">Witherspring Wilds</div>
+        <p class="footer-tagline">
+          An unofficial fan site for Witherspring Wilds — the open-world life sim developed by
+          Fancy Fish Games. Play the free browser demo here, no download required.
+        </p>
+      </div>
+      <div class="footer-nav">
+        <h4>Navigate</h4>
+        <ul>
+          <li><a href="#play">▶ Play Game</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#how-to-play">How to Play</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#comments">Comments</a></li>
+        </ul>
+      </div>
+    </div>
+    <hr class="footer-divider">
+    <p class="footer-copy">
+      © 2025 witherspringwilds.online &nbsp;·&nbsp; This is an unofficial fan site.
+      Witherspring Wilds is developed and owned by <strong>Fancy Fish Games</strong>.
+      All game content, characters, and assets are the intellectual property of their respective creators.
+      This site is not affiliated with or endorsed by Fancy Fish Games.
+    </p>
+  </div>
+</footer>
+
+<script>
+/* ================================================
+   MOBILE DETECTION
+================================================ */
+function isMobile() {
+  return /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent) || window.innerWidth < 768;
+}
+
+/* ================================================
+   INIT
+================================================ */
+document.addEventListener('DOMContentLoaded', function () {
+  if (isMobile()) {
+    document.getElementById('mobile-tip').style.display = 'block';
+  }
+});
+
+/* ================================================
+   HAMBURGER MENU
+================================================ */
+function toggleMenu() {
+  document.getElementById('nav-links').classList.toggle('open');
+}
+
+function closeMenu() {
+  document.getElementById('nav-links').classList.remove('open');
+}
+
+document.addEventListener('click', function (e) {
+  var nav = document.getElementById('nav-links');
+  var btn = document.getElementById('hamburger');
+  if (nav.classList.contains('open') && !nav.contains(e.target) && !btn.contains(e.target)) {
+    closeMenu();
+  }
+});
+
+/* ================================================
+   GAME LOADING
+================================================ */
+var loadTimerInterval = null;
+var isIosFakeFS = false;
+
+function showGameControls() {
+  document.getElementById('game-controls').style.display = 'flex';
+}
+
+function hideLoading() {
+  document.getElementById('game-loading').style.display = 'none';
+  if (loadTimerInterval) { clearInterval(loadTimerInterval); loadTimerInterval = null; }
+  document.getElementById('game-frame').style.display = 'block';
+  showGameControls();
+  document.getElementById('game-tip').textContent = '🎮 Use the controls below the game to toggle fullscreen or close.';
+}
+
+function startGame() {
+  var overlay  = document.getElementById('game-overlay');
+  var loading  = document.getElementById('game-loading');
+  var frame    = document.getElementById('game-frame');
+  var tip      = document.getElementById('game-tip');
+  var timerEl  = document.getElementById('load-timer');
+
+  overlay.style.display = 'none';
+  loading.style.display = 'flex';
+  tip.textContent = '⏳ Loading Witherspring Wilds… this usually takes 10–20 seconds.';
+
+  var startTime = Date.now();
+  loadTimerInterval = setInterval(function () {
+    timerEl.textContent = Math.floor((Date.now() - startTime) / 1000) + 's elapsed';
+  }, 1000);
+
+  frame.src = frame.getAttribute('data-src');
+
+  frame.onload = function () {
+    if (loading.style.display !== 'none') hideLoading();
+  };
+
+  setTimeout(function () {
+    if (loading.style.display !== 'none') hideLoading();
+  }, 60000);
+}
+
+function closeGame() {
+  if (isIosFakeFS) {
+    exitIosFakeFS();
+  } else if (document.fullscreenElement) {
+    document.exitFullscreen();
+  } else if (document.webkitFullscreenElement) {
+    document.webkitExitFullscreen();
+  }
+
+  var frame = document.getElementById('game-frame');
+  frame.src = '';
+  frame.style.display = 'none';
+
+  document.getElementById('game-controls').style.display = 'none';
+  document.getElementById('game-loading').style.display = 'none';
+  document.getElementById('game-overlay').style.display = 'flex';
+  document.getElementById('game-tip').textContent = '▶ Click Play Now above to start the game in your browser — no download required.';
+
+  if (loadTimerInterval) { clearInterval(loadTimerInterval); loadTimerInterval = null; }
+  updateFsButton(false);
+}
+
+/* ================================================
+   FULLSCREEN
+================================================ */
+function toggleFullscreen() {
+  var wrapper = document.querySelector('.game-wrapper');
+
+  if (isIosFakeFS) {
+    exitIosFakeFS();
+    return;
+  }
+
+  if (document.fullscreenElement || document.webkitFullscreenElement) {
+    (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+  } else if (wrapper.requestFullscreen) {
+    wrapper.requestFullscreen();
+  } else if (wrapper.webkitRequestFullscreen) {
+    wrapper.webkitRequestFullscreen();
+  } else {
+    enterIosFakeFS(wrapper);
+  }
+}
+
+function enterIosFakeFS(wrapper) {
+  isIosFakeFS = true;
+  wrapper.setAttribute('data-orig-style', wrapper.style.cssText);
+  wrapper.style.cssText += ';position:fixed!important;inset:0!important;width:100vw!important;height:100vh!important;padding-bottom:0!important;z-index:99999!important;border-radius:0!important;';
+  document.body.style.overflow = 'hidden';
+  updateFsButton(true);
+}
+
+function exitIosFakeFS() {
+  isIosFakeFS = false;
+  var wrapper = document.querySelector('.game-wrapper');
+  wrapper.style.cssText = wrapper.getAttribute('data-orig-style') || '';
+  document.body.style.overflow = '';
+  updateFsButton(false);
+}
+
+function updateFsButton(isFS) {
+  var label = document.getElementById('fs-label');
+  if (label) label.textContent = isFS ? 'Exit' : 'Fullscreen';
+}
+
+document.addEventListener('fullscreenchange', function () { updateFsButton(!!document.fullscreenElement); });
+document.addEventListener('webkitfullscreenchange', function () { updateFsButton(!!document.webkitFullscreenElement); });
+
+/* ================================================
+   FAQ ACCORDION
+================================================ */
+function toggleFaq(btn) {
+  var item   = btn.closest('.faq-item');
+  var isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(function (el) { el.classList.remove('open'); });
+  if (!isOpen) item.classList.add('open');
+}
+
+/* ================================================
+   COMMENT FORM
+================================================ */
+function escapeHtml(str) {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function submitComment() {
+  var name   = document.getElementById('c-name').value.trim();
+  var rating = parseInt(document.getElementById('c-rating').value, 10);
+  var text   = document.getElementById('c-text').value.trim();
+
+  if (!name)           { alert('Please enter your name.');                           return; }
+  if (text.length < 10) { alert('Please write a comment of at least 10 characters.'); return; }
+
+  var stars = '★'.repeat(rating) + '☆'.repeat(5 - rating);
+
+  var card = document.createElement('div');
+  card.className = 'comment-card';
+  card.innerHTML =
+    '<div class="comment-header">' +
+      '<span class="comment-author">' + escapeHtml(name) + '</span>' +
+      '<span class="comment-stars">'  + stars             + '</span>' +
+    '</div>' +
+    '<div class="comment-text">' + escapeHtml(text) + '</div>';
+
+  var list = document.getElementById('comment-list');
+  list.insertBefore(card, list.firstChild);
+
+  document.getElementById('c-name').value   = '';
+  document.getElementById('c-rating').value = '5';
+  document.getElementById('c-text').value   = '';
+}
+</script>
+
+</body>
+</html>
